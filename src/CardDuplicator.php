@@ -1,11 +1,11 @@
 <?php
 
-namespace Cactus\CardDuplicator;
+namespace Cactus\BulkTagging;
 
 use Laravel\Nova\Nova;
 use Laravel\Nova\Tool;
 
-class CardDuplicator extends Tool
+class BulkTagging extends Tool
 {
     /**
      * Perform any tasks that need to happen when the tool is booted.
@@ -14,8 +14,8 @@ class CardDuplicator extends Tool
      */
     public function boot()
     {
-        Nova::script('card-duplicator', __DIR__.'/../dist/js/tool.js');
-        Nova::style('card-duplicator', __DIR__.'/../dist/css/tool.css');
+        Nova::script('bulk-tagging', __DIR__.'/../dist/js/tool.js');
+        Nova::style('bulk-tagging', __DIR__.'/../dist/css/tool.css');
     }
 
     /**

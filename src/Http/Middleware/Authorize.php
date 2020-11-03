@@ -1,9 +1,9 @@
 <?php
 
-namespace Cactus\CardDuplicator\Http\Middleware;
+namespace Cactus\BulkTagging\Http\Middleware;
 
+use Cactus\BulkTagging\BulkTagging;
 use Laravel\Nova\Nova;
-use Cactus\CardDuplicator\CardDuplicator;
 
 class Authorize
 {
@@ -29,6 +29,6 @@ class Authorize
      */
     public function matchesTool($tool)
     {
-        return $tool instanceof CardDuplicator;
+        return $tool instanceof BulkTagging;
     }
 }

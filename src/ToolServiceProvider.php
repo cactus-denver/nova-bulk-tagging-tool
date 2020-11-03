@@ -17,7 +17,7 @@ class ToolServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'card-duplicator');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'bulk-tagging');
 
         $this->app->booted(function () {
             $this->routes();
@@ -40,7 +40,7 @@ class ToolServiceProvider extends ServiceProvider
         }
 
         Route::middleware(['nova', Authorize::class])
-                ->prefix('nova-vendor/card-duplicator')
+                ->prefix('nova-vendor/bulk-tagging')
                 ->group(__DIR__.'/../routes/api.php');
     }
 

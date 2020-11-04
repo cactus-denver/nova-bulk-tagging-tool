@@ -1,5 +1,5 @@
 {
-    "name": "cactus/nova-card-duplicator",
+    "name": "cactus/nova-bulk-tagging",
     "description": "A Laravel Nova tool.",
     "keywords": [
         "laravel",
@@ -11,13 +11,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Cactus\\CardDuplicator\\": "src/"
+            "Cactus\\BulkTagging\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Cactus\\CardDuplicator\\ToolServiceProvider"
+                "Cactus\\BulkTagging\\ToolServiceProvider"
             ]
         }
     },

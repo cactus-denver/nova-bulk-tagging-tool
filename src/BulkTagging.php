@@ -25,8 +25,8 @@ class BulkTagging extends Tool
      */
     public function renderNavigation()
     {
-        // We don't want the Card Duplicator to be available via the sidebar navigation. It should only be accessed/initiated
-        // . from a Group action
-        return null; //view('card-duplicator::navigation');
+        // We don't want the Bulk Tagger to be available via the sidebar navigation. It should only be accessed/initiated
+        // . from a Card action
+        return view('bulk-tagging::navigation');
     }
 }

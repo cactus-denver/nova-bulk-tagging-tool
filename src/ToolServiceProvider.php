@@ -1,6 +1,6 @@
 <?php
 
-namespace Cactus\CardDuplicator;
+namespace Cactus\BulkTagging;
 
 use Laravel\Nova\Nova;
 use Laravel\Nova\Events\ServingNova;

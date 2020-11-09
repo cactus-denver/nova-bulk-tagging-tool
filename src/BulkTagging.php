@@ -27,6 +27,6 @@ class BulkTagging extends Tool
     {
         // We don't want the Bulk Tagger to be available via the sidebar navigation. It should only be accessed/initiated
         // . from a Card action
-        return view('bulk-tagging::navigation');
+        return null; // view('bulk-tagging::navigation');
     }
 }

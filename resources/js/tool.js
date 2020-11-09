@@ -1,9 +1,9 @@
 Nova.booting((Vue, router, store) => {
   router.addRoutes([
     {
-      name: 'card-duplicator',
-      path: '/card-duplicator',
+      name: 'bulk-tagging',
+      path: '/bulk-tagging',
       component: require('./components/Tool'),
     },
   ])
-})
+});

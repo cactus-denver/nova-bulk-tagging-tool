@@ -67,7 +67,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex items-center">
+            <div class="flex items-center" v-if="!finalDestination">
                 <button
                         v-on:click="cancel"
                         class="btn btn-link dim cursor-pointer text-80 ml-auto mr-6"
@@ -153,7 +153,6 @@
                     questionsToTag: this.selected,
                     cards: this.cards,
                 };
-                // this.finalDestination = true;
                 axios.post('/nova/tag/', postData)
                     .then(function (response) {
                         this.setFinalDestination();

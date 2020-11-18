@@ -592,7 +592,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n.mt-2 {\n    margin-top: 0.4rem;\n    margin-bottom: .5rem;\n}\n.label-select-all {\n    font-weight: bold;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n.mt-2 {\n    margin-top: 0.4rem;\n    margin-bottom: .5rem;\n}\n.label-select-all {\n    font-weight: bold;\n}\n", ""]);
 
 // exports
 
@@ -726,6 +726,29 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -735,7 +758,8 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
             selfCheckQuestions: null,
             cards: null,
             finalDestination: false,
-            selected: []
+            selected: [],
+            untag: false
         };
     },
 
@@ -796,10 +820,14 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         setFinalDestination: function setFinalDestination() {
             this.finalDestination = true;
         },
+        setUntag: function setUntag() {
+            this.untag = !this.untag;
+        },
         submitClone: function submitClone() {
             var postData = {
                 questionsToTag: this.selected,
-                cards: this.cards
+                cards: this.cards,
+                untag: this.untag
             };
             axios.post('/nova/tag/', postData).then(function (response) {
                 this.setFinalDestination();
@@ -843,7 +871,9 @@ var render = function() {
           _vm.finalDestination
             ? _c("div", [
                 _c("div", { staticClass: "py-6 px-8 w-1/2" }, [
-                  _c("label", [_vm._v("Moved These questions:")]),
+                  _vm.untag
+                    ? _c("label", [_vm._v("Untagged These Answers:")])
+                    : _c("label", [_vm._v("Tagged To These Answers:")]),
                   _vm._v(" "),
                   _c(
                     "ul",
@@ -855,9 +885,13 @@ var render = function() {
                     0
                   ),
                   _vm._v(" "),
-                  _c("p", { staticClass: "py-4" }, [
-                    _vm._v("Added these cards: " + _vm._s(_vm.cards))
-                  ]),
+                  _vm.untag
+                    ? _c("p", { staticClass: "py-4" }, [
+                        _vm._v("Removed these cards: " + _vm._s(_vm.cards))
+                      ])
+                    : _c("p", { staticClass: "py-4" }, [
+                        _vm._v("Added these cards: " + _vm._s(_vm.cards))
+                      ]),
                   _vm._v(" "),
                   _c(
                     "button",
@@ -867,7 +901,7 @@ var render = function() {
                       attrs: { type: "button" },
                       on: { click: _vm.sendBackToCardSelection }
                     },
-                    [_vm._v("Return to All Cards")]
+                    [_vm._v("Return to All Cards\n                        ")]
                   )
                 ])
               ])
@@ -930,6 +964,25 @@ var render = function() {
                   ? _c("div", [
                       _c("div", { staticClass: "flex border-b border-40" }, [
                         _vm._m(1),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "py-6 px-8 mx-8 w-full" }, [
+                          _c("label", [
+                            _c("input", {
+                              staticClass: "checkbox mt-2",
+                              attrs: { type: "checkbox" },
+                              domProps: { value: this.untag },
+                              on: { click: _vm.setUntag }
+                            })
+                          ])
+                        ])
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.readyForCardSelection
+                  ? _c("div", [
+                      _c("div", { staticClass: "flex border-b border-40" }, [
+                        _vm._m(2),
                         _vm._v(" "),
                         _c(
                           "div",
@@ -1062,7 +1115,7 @@ var render = function() {
                     attrs: { type: "button", disabled: !_vm.canSubmit },
                     on: { click: _vm.submitClone }
                   },
-                  [_vm._v("Tag To These Questions\n            ")]
+                  [_vm._v("Update Questions\n            ")]
                 )
               : _vm._e()
           ])
@@ -1077,6 +1130,18 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "w-1/5 px-8 py-6" }, [
       _c("label", { attrs: { for: "appType" } }, [_vm._v("App Type")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "w-1/5 px-8 py-6" }, [
+      _c("label", [
+        _vm._v(
+          "\n                                    Untag cards?\n                                "
+        )
+      ])
     ])
   },
   function() {
@@ -1187,7 +1252,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n.mt-2 {\n    margin-top: 0.4rem;\n    margin-bottom: .5rem;\n}\n.label-select-all {\n    font-weight: bold;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n.mt-2 {\n    margin-top: 0.4rem;\n    margin-bottom: .5rem;\n}\n.label-select-all {\n    font-weight: bold;\n}\n", ""]);
 
 // exports
 
@@ -1288,6 +1353,27 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -1297,7 +1383,8 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
             profileAnswers: null,
             cards: null,
             finalDestination: false,
-            selected: []
+            selected: [],
+            untag: false
         };
     },
 
@@ -1358,10 +1445,14 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         setFinalDestination: function setFinalDestination() {
             this.finalDestination = true;
         },
+        setUntag: function setUntag() {
+            this.untag = !this.untag;
+        },
         submitClone: function submitClone() {
             var postData = {
                 answersToTag: this.selected,
-                cards: this.cards
+                cards: this.cards,
+                untag: this.untag
             };
             axios.post('/nova/tag/', postData).then(function (response) {
                 this.setFinalDestination();
@@ -1405,7 +1496,9 @@ var render = function() {
           _vm.finalDestination
             ? _c("div", [
                 _c("div", { staticClass: "py-6 px-8 w-1/2" }, [
-                  _c("label", [_vm._v("Tagged To These Answers:")]),
+                  _vm.untag
+                    ? _c("label", [_vm._v("Untagged These Answers:")])
+                    : _c("label", [_vm._v("Tagged To These Answers:")]),
                   _vm._v(" "),
                   _c(
                     "ul",
@@ -1417,9 +1510,13 @@ var render = function() {
                     0
                   ),
                   _vm._v(" "),
-                  _c("p", { staticClass: "py-4" }, [
-                    _vm._v("Added these cards: " + _vm._s(_vm.cards))
-                  ]),
+                  _vm.untag
+                    ? _c("p", { staticClass: "py-4" }, [
+                        _vm._v("Removed these cards: " + _vm._s(_vm.cards))
+                      ])
+                    : _c("p", { staticClass: "py-4" }, [
+                        _vm._v("Added these cards: " + _vm._s(_vm.cards))
+                      ]),
                   _vm._v(" "),
                   _c(
                     "button",
@@ -1429,7 +1526,7 @@ var render = function() {
                       attrs: { type: "button" },
                       on: { click: _vm.sendBackToCardSelection }
                     },
-                    [_vm._v("Return to All Cards")]
+                    [_vm._v("Return to All Cards\n                        ")]
                   )
                 ])
               ])
@@ -1492,6 +1589,25 @@ var render = function() {
                   ? _c("div", [
                       _c("div", { staticClass: "flex border-b border-40" }, [
                         _vm._m(1),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "py-6 px-8 mx-8 w-full" }, [
+                          _c("label", [
+                            _c("input", {
+                              staticClass: "checkbox mt-2",
+                              attrs: { type: "checkbox" },
+                              domProps: { value: this.untag },
+                              on: { click: _vm.setUntag }
+                            })
+                          ])
+                        ])
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.readyForCardSelection
+                  ? _c("div", [
+                      _c("div", { staticClass: "flex border-b border-40" }, [
+                        _vm._m(2),
                         _vm._v(" "),
                         _c(
                           "div",
@@ -1624,7 +1740,7 @@ var render = function() {
                     attrs: { type: "button", disabled: !_vm.canSubmit },
                     on: { click: _vm.submitClone }
                   },
-                  [_vm._v("Tag To These Questions\n            ")]
+                  [_vm._v("Update Questions\n            ")]
                 )
               : _vm._e()
           ])
@@ -1639,6 +1755,18 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "w-1/5 px-8 py-6" }, [
       _c("label", { attrs: { for: "appType" } }, [_vm._v("App Type")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "w-1/5 px-8 py-6" }, [
+      _c("label", [
+        _vm._v(
+          "\n                                    Untag cards?\n                                "
+        )
+      ])
     ])
   },
   function() {

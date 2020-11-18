@@ -9,16 +9,19 @@
                 <div class="card">
                     <div v-if="finalDestination">
                         <div class="py-6 px-8 w-1/2">
-                            <label>Tagged To These Answers:</label>
+                            <label v-if="untag">Untagged These Answers:</label>
+                            <label v-else>Tagged To These Answers:</label>
                             <ul>
                                 <li class="py-1" v-for="answer in selected">{{getAnswerText(answer)}}</li>
                             </ul>
-                            <p class="py-4">Added these cards: {{cards}}</p>
+                            <p class="py-4" v-if="untag">Removed these cards: {{cards}}</p>
+                            <p class="py-4" v-else>Added these cards: {{cards}}</p>
                             <button
                                     type="button"
                                     class="btn btn-default btn-primary inline-flex items-center relative"
                                     v-on:click="sendBackToCardSelection"
-                            >Return to All Cards</button>
+                            >Return to All Cards
+                            </button>
                         </div>
                     </div>
                     <div v-else>
@@ -35,6 +38,24 @@
                                     <option disabled value="">Please select one</option>
                                     <option v-for="type in appTypes" v-bind:value="type.id">{{type.slug}}</option>
                                 </select>
+                            </div>
+                        </div>
+
+                        <div v-if="readyForCardSelection">
+                            <div class="flex border-b border-40">
+                                <div class="w-1/5 px-8 py-6">
+                                    <label>
+                                        Untag cards?
+                                    </label>
+                                </div>
+                                <div class="py-6 px-8 mx-8 w-full">
+                                    <label>
+                                        <input type="checkbox"
+                                               class="checkbox mt-2"
+                                               v-on:click="setUntag"
+                                               v-bind:value="this.untag"/>
+                                    </label>
+                                </div>
                             </div>
                         </div>
 
@@ -67,7 +88,7 @@
                     </div>
                 </div>
             </div>
-            <div  v-if="!finalDestination" class="flex items-center">
+            <div v-if="!finalDestination" class="flex items-center">
                 <button
                         v-on:click="cancel"
                         class="btn btn-link dim cursor-pointer text-80 ml-auto mr-6"
@@ -79,7 +100,7 @@
                         v-if="appType"
                         v-on:click="submitClone"
                         class="btn btn-default btn-primary inline-flex items-center relative"
-                >Tag To These Questions
+                >Update Questions
                 </button>
             </div>
         </form>
@@ -96,6 +117,7 @@
                 cards: null,
                 finalDestination: false,
                 selected: [],
+                untag: false,
             }
         },
         computed: {
@@ -148,10 +170,14 @@
             setFinalDestination() {
                 this.finalDestination = true;
             },
+            setUntag() {
+                this.untag = !this.untag;
+            },
             submitClone() {
                 let postData = {
                     answersToTag: this.selected,
                     cards: this.cards,
+                    untag: this.untag,
                 };
                 axios.post('/nova/tag/', postData)
                     .then(function (response) {

@@ -113,8 +113,7 @@
                 this.$router.push('/resources/card-all');
             },
             setUp(groupId) {
-                // this may also will need to passthrough the card Ids
-                axios.get('/nova/cards?group_id=' + groupId).then(response => {
+                axios.get('/nova/cards-by-group/' + groupId).then(response => {
                     this.groupCards = response.data;
                 });
 

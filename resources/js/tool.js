@@ -10,5 +10,10 @@ Nova.booting((Vue, router, store) => {
       path: '/bulk-tagging/profile-answers',
       component: require('./components/ProfileAnswerBulkTag'),
     },
+    {
+      name: 'card-change-type',
+      path: '/card/change-type',
+      component: require('./components/CardTypeChangeTool'),
+    },
   ])
 });

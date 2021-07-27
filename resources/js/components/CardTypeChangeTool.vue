@@ -17,7 +17,7 @@
                                         v-model="type"
                                 >
                                     <option disabled value="">Please select one</option>
-                                    <option v-for="type in cardTypes" v-bind:value="type.id">{{type.name}}</option>
+                                    <option v-for="t in cardTypes" v-bind:value="t.id">{{t.name}}</option>
                                 </select>
                             </div>
                         </div>
@@ -110,7 +110,7 @@
         },
         methods: {
             cancel() {
-                this.$router.push('/resources/card-all');
+                this.$router.push('/resources/groups');
             },
             setUp(groupId) {
                 axios.get('/nova/cards-by-group/' + groupId).then(response => {
@@ -121,8 +121,8 @@
                   this.cardTypes = response.data;
                 });
             },
-            sendBackToCardSelection() {
-                this.$router.push('/resources/card-all');
+          sendBackToCardSelection() {
+                this.$router.push('/resources/card-resources');
             },
             submitCards() {
                 let postData = {
@@ -131,7 +131,7 @@
                 };
                 axios.post('/nova/change-card-type/', postData)
                     .then(function (response) {
-                        this.setFinalDestination();
+                      this.sendBackToCardSelection();
                     }.bind(this))
                     .catch(function (error) {
                         let response = error.response;

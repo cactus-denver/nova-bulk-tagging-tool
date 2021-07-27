@@ -64,7 +64,7 @@
                         v-if="type"
                         v-on:click="submitCards"
                         class="btn btn-default btn-primary inline-flex items-center relative"
-                >Update Questions
+                >Update Cards
                 </button>
             </div>
         </form>
@@ -122,7 +122,7 @@
                 });
             },
           sendBackToCardSelection() {
-                this.$router.push('/resources/card-resources');
+                this.$router.push('/resources/groups');
             },
             submitCards() {
                 let postData = {

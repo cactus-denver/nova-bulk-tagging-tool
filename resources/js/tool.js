@@ -12,7 +12,7 @@ Nova.booting((Vue, router, store) => {
     },
     {
       name: 'card-change-type',
-      path: '/card/change-type',
+      path: '/bulk-tagging/card/change-type',
       component: require('./components/CardTypeChangeTool'),
     },
   ])
